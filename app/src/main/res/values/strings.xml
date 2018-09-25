@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">csse</string>
+    <string name="loan_desc">This will charge Rs:100.00 from your mobile as initial deposit amount.Click "OK" to continue.</string>
 </resources>
