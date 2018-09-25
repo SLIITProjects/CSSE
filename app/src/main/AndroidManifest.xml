@@ -9,14 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".payment.AccountService">
+=======
+        <activity android:name=".Main">
+>>>>>>> feature_registration_login
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".payment.RechargeM" />
+=======
+        <activity android:name=".Welcome"></activity>
+>>>>>>> feature_registration_login
     </application>
 
 </manifest>
