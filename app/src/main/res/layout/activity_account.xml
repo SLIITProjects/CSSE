@@ -8,11 +8,11 @@
 
     <Button
         android:id="@+id/Rmbutton"
-        android:layout_width="130dp"
-        android:layout_height="38dp"
-        android:layout_marginLeft="148dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="348dp"
+        android:layout_width="223dp"
+        android:layout_height="51dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="336dp"
         android:text="RECHARGE"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +25,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="152dp"
         android:text="Card No"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,18 +37,19 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:text="Balance"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/getloanb"
-        android:layout_width="130dp"
-        android:layout_height="38dp"
-        android:layout_marginLeft="148dp"
-        android:layout_marginStart="148dp"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="20dp"
-        android:text="GET A LOAN"
         android:onClick="showAlertLoan"
+        android:text="GET A LOAN"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Rmbutton" />
 
@@ -84,17 +86,21 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="152dp"
         android:text=":"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bal"
         android:layout_width="130dp"
-        android:layout_height="16dp"
+        android:layout_height="20dp"
         android:layout_marginLeft="48dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text=":"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/acno" />
 
@@ -106,17 +112,20 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:text="POINTS"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/lPoint"
         android:layout_width="129dp"
-        android:layout_height="17dp"
+        android:layout_height="20dp"
         android:layout_marginLeft="48dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text=":"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/bal" />
 

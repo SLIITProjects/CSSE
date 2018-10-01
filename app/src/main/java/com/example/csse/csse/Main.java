@@ -32,9 +32,9 @@ public class Main extends AppCompatActivity {
     Button btnRegister,btnSignIn;
     RelativeLayout rootLayout;
 
-    FirebaseAuth auth;
-    FirebaseDatabase db;
-    DatabaseReference users;
+    private FirebaseAuth auth;
+    private FirebaseDatabase db;
+    private DatabaseReference users;
 
     @Override
     protected void attachBaseContext(Context newBase) {
