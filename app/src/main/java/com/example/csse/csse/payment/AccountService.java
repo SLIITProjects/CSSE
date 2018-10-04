@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.csse.csse.DialogBox.LoanDialog;
 import com.example.csse.csse.Model.Account;
 import com.example.csse.csse.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +29,7 @@ public class AccountService extends AppCompatActivity {
 
     //Button for Recharge Account
         private Button Raccount;
-//        private Button x;
+        private Button LoanB;
 
         private TextView cardNo;
         private TextView Balance;
@@ -40,6 +41,7 @@ public class AccountService extends AppCompatActivity {
     private DatabaseReference users;
    Account ac;
 User us;
+    AccountManage a;
  // private String ud="-LNJ1nEQIhIoWiED8RVt";
 private String userKey="968765466V";
 //    private String userKey="5588";
@@ -48,7 +50,7 @@ private String userKey="968765466V";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-
+a=new AccountManage();
        // accounts=FirebaseDatabase.getInstance().getReference("accounts");
         db = FirebaseDatabase.getInstance();
         accounts = db.getReference("Accounts");
@@ -57,13 +59,18 @@ private String userKey="968765466V";
         users=db.getReference("User");
 
         Raccount=(Button) findViewById(R.id.Rmbutton);
-
+        LoanB=(Button) findViewById(R.id.getloanb);
         cardNo=(TextView) findViewById(R.id.acno);
         Balance=(TextView) findViewById(R.id.bal);
         loytyPoint=(TextView) findViewById(R.id.lPoint);
 
    // ac=new Account();
-
+        LoanB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openLoanDialog();
+            }
+        });
 
         openRecharge();  //recharge method
        // setStatus();
@@ -95,9 +102,17 @@ private String userKey="968765466V";
 //        loytyPoint.setText("3");
 //    }
 
+   public void openLoanDialog(){
+//    LoanDialog lnd =new LoanDialog();
+//    lnd.show(getSupportFragmentManager(),"example");
+//
+
+       a.isOnLoan("968765466V");
+       Log.d("loannn","huhuhu");
 
 
-        public void openRecharge(){
+   }
+    public void openRecharge(){
 
             Raccount.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,8 +124,7 @@ private String userKey="968765466V";
             });
 
         }
-
-            public void test(){
+        public void test(){
         //    String id =accounts.push().getKey();
                // String id="TuaePLTgskOMUuBAGWZPHEShEsl1";
                // final String userID =FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -118,8 +132,8 @@ private String userKey="968765466V";
           //      accounts.child(id).setValue(account);
 
             }
-
     public void showAlertLoan(View view) {
+
         AlertDialog.Builder alert =new AlertDialog.Builder(this);
         alert.setTitle("Loan Requset");
         alert.setMessage("Do You need 30 LKR Loan");
@@ -129,20 +143,19 @@ private String userKey="968765466V";
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                boolean b=isOnLoan("55");
 
-                if(b==true) {
+              //  if(b==true) {
                    // test();
                   //  String id =accounts.push().getKey();
-                    String id="968765466V";
+                //    String id="968765466V";
                     // final String userID =FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    Account account=new Account(id,"abc2",35.0f,3.5f,"1",10.0f);
-                    accounts.child(id).setValue(account);
+                  //  Account account=new Account(id,"abc2",35.0f,3.5f,"1",10.0f);
+                    //accounts.child(id).setValue(account);
 
                     Toast.makeText(AccountService.this, "Succefully", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    Toast.makeText(AccountService.this, "You are already got a Loan", Toast.LENGTH_SHORT).show();
+              //  }
+              // / else
+                  //  Toast.makeText(AccountService.this, "You are already got a Loan", Toast.LENGTH_SHORT).show();
             }
         });
         alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -154,27 +167,19 @@ private String userKey="968765466V";
         });
         alert.create().show();
     }
-    public boolean updateBalance(String cardNo, float amount){
-
-            return true;
-
-    }
-
     public boolean isBalanceSufficient(String cardNumber){
         return true;
     }
-    public boolean isOnLoan(String cardNo)
-    {
-
-        if (cardNo=="55")
-        return true;
-        else
-            return false;
-    }
+//    public boolean isOnLoan(String cardNo) {
+//
+//        if (cardNo=="55")
+//        return true;
+//        else
+//            return false;
+//    }
     public  void applyForLoan(String cardNo){
 
     }
-
     public void recharge(String cardNo,float amount,String paymentMethod){
 
     }
@@ -183,13 +188,13 @@ private String userKey="968765466V";
         accounts.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-             //   Account ac=new Account();
-                ac=dataSnapshot.getValue(Account.class);
+                Account ac=new Account();
+               ac=dataSnapshot.getValue(Account.class);
               //  us=dataSnapshot.getValue(User.class);
-              Log.d("TAGMY","id111111111111111111111111111111   "+ac.getLoanAmnt());
+             Log.d("TAGMY","id111111111111111111111111111111   "+ac.getLoanAmnt());
                 cardNo.setText(ac.getCardNo());
                 Balance.setText(String.valueOf(ac.getCrediteBal()));
-                loytyPoint.setText(String.valueOf(ac.getLoPoint()));
+               loytyPoint.setText(String.valueOf(ac.getLoPoint()));
             }
 
             @Override
@@ -199,6 +204,17 @@ private String userKey="968765466V";
         });
 
     }
+    public void paymethodGet(View view) {
 
+        boolean b;
+
+     //   IPaymentMethod p =new LoyaltyPoints(new PaymentMethod());
+        IPaymentMethod p =new PaymentMethod();
+        b=p.makePay(userKey,10.5f);
+
+        Log.d("ddreal", String.valueOf(b));
+
+
+    }
 
 }

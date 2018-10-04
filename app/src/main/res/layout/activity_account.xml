@@ -48,7 +48,6 @@
         android:layout_marginLeft="88dp"
         android:layout_marginStart="88dp"
         android:layout_marginTop="20dp"
-        android:onClick="showAlertLoan"
         android:text="GET A LOAN"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Rmbutton" />
@@ -128,6 +127,20 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/bal" />
+
+
+
+    <Button
+        android:id="@+id/pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="148dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="24dp"
+        android:onClick="paymethodGet"
+        android:text="Pay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getloanb" />
 
 
 </android.support.constraint.ConstraintLayout>
