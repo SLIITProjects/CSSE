@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.csse.csse.Model.Account;
@@ -39,10 +40,11 @@ public class RechargeM extends AppCompatActivity {
     private DatabaseReference user;
     private String codesend;
 
+    private  TextView card;
     private EditText mobileNo, amount,code;
     private Button getB,rechB;
-    String userKey="968765466V";
-
+    private String userKey;
+    private String cardno;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +52,20 @@ public class RechargeM extends AppCompatActivity {
 
 
        userKey = getIntent().getExtras().getString("postId");
+       cardno =getIntent().getExtras().getString("postCard");
 
         db = FirebaseDatabase.getInstance();
         mAuth=FirebaseAuth.getInstance();
         user = db.getReference("User");
 
+        card=(TextView)findViewById(R.id.accno);
         mobileNo = (EditText) findViewById(R.id.mno);
         amount = (EditText) findViewById(R.id.aMont);
         code=(EditText)findViewById(R.id.codeEnterd);
         getB = (Button) findViewById(R.id.abutton);
         rechB =(Button) findViewById(R.id.rechargeB);
+
+      card.setText(cardno);
 
         getB.setOnClickListener(new View.OnClickListener() {
             @Override

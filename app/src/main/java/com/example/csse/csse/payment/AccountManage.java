@@ -15,6 +15,7 @@ public class AccountManage {
     private FirebaseDatabase db;
     private DatabaseReference accounts;
     private DatabaseReference users;
+
     Account ac;
     String x;
 

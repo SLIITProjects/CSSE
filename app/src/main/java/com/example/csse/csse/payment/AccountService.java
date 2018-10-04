@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.csse.csse.DialogBox.LoanDialog;
 import com.example.csse.csse.Model.Account;
+import com.example.csse.csse.Model.PaymentHistroty;
 import com.example.csse.csse.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,31 +28,36 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.example.csse.csse.R;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AccountService extends AppCompatActivity {
 
     //Button for Recharge Account
         private Button Raccount;
         private Button LoanB;
 
-        private TextView cardNo;
-        private TextView Balance;
-        private TextView loytyPoint;
+        private TextView cardNo,Balance,loytyPoint,Uname;
+
 
    private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference accounts;
     private DatabaseReference users;
+    private DatabaseReference payemthis;
+  //  PaymentHistroty ps;
    Account ac;
 User us;
     AccountManage a;
  // private String ud="-LNJ1nEQIhIoWiED8RVt";
 private String userKey="968765466V";
+   private String ucard;
 //    private String userKey="5588";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
+//ps=new PaymentHistroty();
 a=new AccountManage();
        // accounts=FirebaseDatabase.getInstance().getReference("accounts");
         db = FirebaseDatabase.getInstance();
@@ -57,18 +65,20 @@ a=new AccountManage();
        // FirebaseUser user=auth.getCurrentUser();
        // userId=user.getUid();
         users=db.getReference("User");
-
+        payemthis=db.getReference("PaymentHistory");
         Raccount=(Button) findViewById(R.id.Rmbutton);
         LoanB=(Button) findViewById(R.id.getloanb);
         cardNo=(TextView) findViewById(R.id.acno);
         Balance=(TextView) findViewById(R.id.bal);
         loytyPoint=(TextView) findViewById(R.id.lPoint);
+        Uname=(TextView)findViewById(R.id.UnameText);
 
    // ac=new Account();
         LoanB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openLoanDialog();
+              //  openLoanDialog();
+                showAlertLoan();
             }
         });
 
@@ -112,6 +122,7 @@ a=new AccountManage();
 
 
    }
+
     public void openRecharge(){
 
             Raccount.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +130,7 @@ a=new AccountManage();
                 public void onClick(View view) {
                     Intent intent=new Intent(AccountService.this,RechargeM.class);
                     intent.putExtra("postId",userKey);
+                    intent.putExtra("postCard",ucard);
                     startActivity(intent);
                 }
             });
@@ -132,7 +144,8 @@ a=new AccountManage();
           //      accounts.child(id).setValue(account);
 
             }
-    public void showAlertLoan(View view) {
+
+    public void showAlertLoan() {
 
         AlertDialog.Builder alert =new AlertDialog.Builder(this);
         alert.setTitle("Loan Requset");
@@ -147,11 +160,16 @@ a=new AccountManage();
               //  if(b==true) {
                    // test();
                   //  String id =accounts.push().getKey();
-                //    String id="968765466V";
+                   String id="968765200V";
                     // final String userID =FirebaseAuth.getInstance().getCurrentUser().getUid();
                   //  Account account=new Account(id,"abc2",35.0f,3.5f,"1",10.0f);
-                    //accounts.child(id).setValue(account);
-
+                // accounts.child(id).setValue(account);
+                String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                Time time = new Time();
+                time.setToNow();
+                String t=time.hour+":"+time.minute;
+                PaymentHistroty ps =new PaymentHistroty(id,"abc2",date,t,"1(Colombo-Kandy)",150);
+                payemthis.child(id).setValue(ps);
                     Toast.makeText(AccountService.this, "Succefully", Toast.LENGTH_SHORT).show();
               //  }
               // / else
@@ -192,9 +210,11 @@ a=new AccountManage();
                ac=dataSnapshot.getValue(Account.class);
               //  us=dataSnapshot.getValue(User.class);
              Log.d("TAGMY","id111111111111111111111111111111   "+ac.getLoanAmnt());
+                ucard=ac.getCardNo();
                 cardNo.setText(ac.getCardNo());
                 Balance.setText(String.valueOf(ac.getCrediteBal()));
-               loytyPoint.setText(String.valueOf(ac.getLoPoint()));
+                loytyPoint.setText(String.valueOf(ac.getLoPoint()));
+
             }
 
             @Override
@@ -204,6 +224,7 @@ a=new AccountManage();
         });
 
     }
+
     public void paymethodGet(View view) {
 
         boolean b;

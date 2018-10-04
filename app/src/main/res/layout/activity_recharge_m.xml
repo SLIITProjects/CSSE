@@ -125,10 +125,11 @@
         android:id="@+id/textView8"
         android:layout_width="64dp"
         android:layout_height="17dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:text="Account : "
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -139,6 +140,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
