@@ -34,12 +34,12 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.concurrent.TimeUnit;
 
 public class InitLoan extends AppCompatActivity {
+
     MaterialEditText editCode,edtPhone;
     Button verify,send;
     TextView txt;
-    String nic;
-    String currentUsercard;
-    String phoneNumber, otp;
+    String nic,currentUsercard,phoneNumber, otp;
+
     FirebaseAuth auth;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
     private String verificationCode;
@@ -49,11 +49,13 @@ public class InitLoan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init_loan);
 
+        //initialize views by calling this function
         findViews();
         StartFirebaseLogin();
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //get passed values through activity
                 Intent intent = getIntent();
                 phoneNumber=intent.getStringExtra("Mobile") ;
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -79,9 +81,13 @@ public class InitLoan extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        //initialize firebase
                         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
                         final DatabaseReference table_card = database.getReference("Card");
                         final DatabaseReference table_account = database.getReference("Accounts");
+
+                        //if task success create card and account for user
                         if (task.isSuccessful()) {
                             Intent intent = getIntent();
                             nic=intent.getStringExtra("NIC");
@@ -126,12 +132,13 @@ public class InitLoan extends AppCompatActivity {
         editCode=findViewById(R.id.editOtp);
         txt = findViewById(R.id.edit_txt);
     }
+    //prompt message whether verification complete or not
     private void StartFirebaseLogin() {
         auth = FirebaseAuth.getInstance();
         mCallback = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                Toast.makeText(InitLoan.this,"verification completed",Toast.LENGTH_SHORT).show();
+
             }
             @Override
             public void onVerificationFailed(FirebaseException e) {
@@ -145,6 +152,8 @@ public class InitLoan extends AppCompatActivity {
             }
         };
     }
+
+    //Generate unique card number for an user
     private String generateCardNumber(){
         long timeSeed = System.nanoTime(); // to get the current date time value
 
