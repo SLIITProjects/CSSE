@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+//In this class, get user NIC and password then check it with the database and login user
 public class Sign_in extends AppCompatActivity {
     MaterialEditText editUsername,editPassword;
     Button btnSignIn;
@@ -34,10 +35,12 @@ public class Sign_in extends AppCompatActivity {
         editUsername = (MaterialEditText)findViewById(R.id.editUsername);
         btnSignIn = (Button)findViewById(R.id.btn_signIn);
 
+        //initialize firebase database
         FirebaseDatabase databae = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = databae.getReference("User");
         final DatabaseReference table_card = databae.getReference("Card");
 
+        //When user click sign in button it will redirect to the main screen.
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,10 +54,11 @@ public class Sign_in extends AppCompatActivity {
 
                         //check if user exist in the database
                         if (dataSnapshotuser.child(editUsername.getText().toString()).exists()) {
-
-                            //Get User Information
                             mdialog.dismiss();
+                            //Get User Information
+
                             user = dataSnapshotuser.child(editUsername.getText().toString()).getValue(User.class);
+
                             user.setNic(editUsername.getText().toString());
                             if (user.getPassword().equals(editPassword.getText().toString())) {
                                 table_card.addValueEventListener(new ValueEventListener() {

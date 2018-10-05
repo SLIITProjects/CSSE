@@ -9,6 +9,7 @@
 
     <color name="btn_signIn">#1fbad6</color>
     <color name="btn_register">#83838c</color>
+    <color name="btn_pass">#61CF79</color>
 
     <color name="overlayBackground">#7f333639</color>
     <color name="overlayActionbar">#0e0d0e</color>

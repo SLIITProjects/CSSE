@@ -29,7 +29,7 @@ public class Home extends AppCompatActivity
         toolbar.setTitle("Tixora");
         setSupportActionBar(toolbar);
 
-
+        //Drawer implementation
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -39,11 +39,13 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Print name and phone numbers
         View headerView = navigationView.getHeaderView(0);
         fullName = (TextView)headerView.findViewById(R.id.user_name);
         fullName.setText(Common.currentUser.getFname());
         cardNumber = (TextView)headerView.findViewById(R.id.mobile_number);
         cardNumber.setText(Common.currentUser.getMobile());
+
 
         name = (TextView)findViewById(R.id.name);
         name.setText(Common.currentUser.getFname());
@@ -93,7 +95,7 @@ public class Home extends AppCompatActivity
             Intent profileIntent = new Intent(Home.this,Profile.class);
             startActivity(profileIntent);
         } else if (id == R.id.nav_signOut) {
-            Intent SignIn = new Intent(Home.this,Sign_in.class);
+            Intent SignIn = new Intent(Home.this,Main.class);
             SignIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(SignIn);
         }
