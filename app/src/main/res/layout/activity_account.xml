@@ -10,9 +10,9 @@
         android:id="@+id/Rmbutton"
         android:layout_width="223dp"
         android:layout_height="51dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="336dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="368dp"
         android:text="RECHARGE"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,15 +20,15 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="48dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="212dp"
         android:text="Card No"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="48dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="Balance"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -47,8 +47,8 @@
         android:id="@+id/getloanb"
         android:layout_width="223dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginStart="88dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="20dp"
         android:text="GET A LOAN"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,13 +57,12 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="439dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="159dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+        app:srcCompat="@drawable/backmap" />
 
     <TextView
         android:id="@+id/accname"
@@ -72,9 +71,9 @@
         android:layout_marginLeft="160dp"
         android:layout_marginStart="160dp"
         android:layout_marginTop="40dp"
-        android:text="ACCOUNT"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:text="PROFILE"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -83,9 +82,8 @@
         android:id="@+id/acno"
         android:layout_width="137dp"
         android:layout_height="20dp"
-        android:layout_marginLeft="44dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:text=":"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="16sp"
@@ -97,8 +95,8 @@
         android:id="@+id/bal"
         android:layout_width="130dp"
         android:layout_height="20dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginStart="48dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:text=":"
         android:textColor="@android:color/holo_red_dark"
@@ -123,9 +121,9 @@
     <TextView
         android:id="@+id/lPoint"
         android:layout_width="129dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginStart="48dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:text=":"
         android:textColor="@android:color/holo_red_dark"
@@ -135,44 +133,43 @@
         app:layout_constraintTop_toBottomOf="@+id/bal" />
 
 
-
     <Button
         android:id="@+id/pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="148dp"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="44dp"
         android:onClick="paymethodGet"
         android:text="Pay"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getloanb" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="48dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="116dp"
-        android:text="Name"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/UnameText"
         android:layout_width="132dp"
-        android:layout_height="22dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="40dp"
         android:text=":"
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="100dp"
+        android:layout_height="121dp"
+        android:layout_marginLeft="144dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?android:attr/listChoiceIndicatorSingle" />
 
 
 </android.support.constraint.ConstraintLayout>

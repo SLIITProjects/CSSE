@@ -27,10 +27,6 @@ public class Account  {
 
     public void setCardNo(String cardNo) { this.cardNo = cardNo; }
 
-  //  public String getUserId() { return userId; }
-
-    //public void setUserId(String userId) { this.userId = userId; }
-
     public float getCrediteBal() { return crediteBal; }
 
     public void setCrediteBal(float crediteBal) { this.crediteBal = crediteBal; }

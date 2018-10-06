@@ -14,22 +14,16 @@ public class LoyaltyPoints extends BonusDecorator{
 
     private FirebaseDatabase db;
     private DatabaseReference accounts;
+    private DatabaseReference updateAcc;
 
     Account ac;
-boolean b;
 
-    private float lpoint;
+
     public String cno;
     private float amt;
 
 
 
-
-
-    public float getLpoint() {
-        return lpoint;
-        //db input card no;
-    }
 
     public float setLpoint(float amount) {
 
@@ -52,7 +46,15 @@ boolean b;
         accounts = db.getReference("Accounts");
     }
 
-    public void Loyty(){
+    public boolean  makePay(final String cardno, final float amnt) {
+
+        cno=cardno;
+        amt=amnt;
+
+        tempPay.makePay(cardno,amnt);
+        db = FirebaseDatabase.getInstance();
+
+        updateAcc = db.getReference().child("Accounts").child(cardno);
         accounts.child(cno).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,31 +66,20 @@ boolean b;
                 float newLopoint =setLpoint(amt);
                 Log.d("dd", String.valueOf(lop+newLopoint));
 
-                ac.setLoPoint(lop+newLopoint);
-                accounts.child(cno).setValue(ac);
+                updateAcc.child("loPoint").setValue(newLopoint+lop);
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-    }
-
-
-
-    public boolean  makePay(final String cardno, final float amnt) {
-
-        cno=cardno;
-        amt=amnt;
-        b=tempPay.makePay(cardno,amnt);
-
-
-        Loyty();
-
 
         // TODO Auto-generated method stub
-        return false;
+        return true;
+
 
     }
 

@@ -34,51 +34,54 @@ import java.util.Date;
 public class AccountService extends AppCompatActivity {
 
     //Button for Recharge Account
-        private Button Raccount;
-        private Button LoanB;
+        private Button Raccount,LoanB;
+        private TextView cardNo,Balance,loytyPoint,Uname,Ul;
 
-        private TextView cardNo,Balance,loytyPoint,Uname;
-
-
-   private FirebaseAuth auth;
+    private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference accounts;
-    private DatabaseReference users;
+    private DatabaseReference getUser;
+
     private DatabaseReference payemthis;
-  //  PaymentHistroty ps;
-   Account ac;
-User us;
+
+    Account ac;
+    User us;
     AccountManage a;
- // private String ud="-LNJ1nEQIhIoWiED8RVt";
-private String userKey="968765466V";
-   private String ucard;
-//    private String userKey="5588";
+
+    private String userKey="968765466V";
+    private String ucard;
+    private String avlBal;
+
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-//ps=new PaymentHistroty();
-a=new AccountManage();
-       // accounts=FirebaseDatabase.getInstance().getReference("accounts");
+
+        a=new AccountManage();
+        ac=new Account();
         db = FirebaseDatabase.getInstance();
         accounts = db.getReference("Accounts");
-       // FirebaseUser user=auth.getCurrentUser();
-       // userId=user.getUid();
-        users=db.getReference("User");
+
+//        users=db.getReference("User");
         payemthis=db.getReference("PaymentHistory");
         Raccount=(Button) findViewById(R.id.Rmbutton);
         LoanB=(Button) findViewById(R.id.getloanb);
         cardNo=(TextView) findViewById(R.id.acno);
         Balance=(TextView) findViewById(R.id.bal);
         loytyPoint=(TextView) findViewById(R.id.lPoint);
-        Uname=(TextView)findViewById(R.id.UnameText);
+        Ul=(TextView)findViewById(R.id.UnameText);
 
-   // ac=new Account();
+
+
         LoanB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                a.isOnLoan(userKey,Ul);
               //  openLoanDialog();
-                showAlertLoan();
+
+             showAlertLoan();
             }
         });
 
@@ -113,11 +116,11 @@ a=new AccountManage();
 //    }
 
    public void openLoanDialog(){
-//    LoanDialog lnd =new LoanDialog();
-//    lnd.show(getSupportFragmentManager(),"example");
+    LoanDialog lnd =new LoanDialog();
+    lnd.show(getSupportFragmentManager(),"example");
 //
-
-       a.isOnLoan("968765466V");
+      // update();
+       a.isOnLoan("968765466V",Uname);
        Log.d("loannn","huhuhu");
 
 
@@ -131,11 +134,13 @@ a=new AccountManage();
                     Intent intent=new Intent(AccountService.this,RechargeM.class);
                     intent.putExtra("postId",userKey);
                     intent.putExtra("postCard",ucard);
+                    intent.putExtra("postBal",avlBal);
                     startActivity(intent);
                 }
             });
 
         }
+
         public void test(){
         //    String id =accounts.push().getKey();
                // String id="TuaePLTgskOMUuBAGWZPHEShEsl1";
@@ -150,70 +155,65 @@ a=new AccountManage();
         AlertDialog.Builder alert =new AlertDialog.Builder(this);
         alert.setTitle("Loan Requset");
         alert.setMessage("Do You need 30 LKR Loan");
+        alert.setCancelable(false);
+
         alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
-
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
+                if(Ul.getText().toString().equalsIgnoreCase("1")){
+                  // a.updateRechargeBalance(userKey,20);
+                    Toast.makeText(AccountService.this, "Sorry Your Already got a Loan", Toast.LENGTH_SHORT).show();
+                }
+                else if(Ul.getText().toString().equalsIgnoreCase("0")){
+                    float avaiBal=Float.valueOf(Balance.getText().toString());
+                    a.updateLoanBalance(userKey, 30,avaiBal);
+                    Toast.makeText(AccountService.this, "Succussfully Your getting 30LKR Thank you", Toast.LENGTH_SHORT).show();
 
-              //  if(b==true) {
-                   // test();
-                  //  String id =accounts.push().getKey();
-                   String id="968765200V";
-                    // final String userID =FirebaseAuth.getInstance().getCurrentUser().getUid();
-                  //  Account account=new Account(id,"abc2",35.0f,3.5f,"1",10.0f);
-                // accounts.child(id).setValue(account);
-                String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                Time time = new Time();
-                time.setToNow();
-                String t=time.hour+":"+time.minute;
-                PaymentHistroty ps =new PaymentHistroty(id,"abc2",date,t,"1(Colombo-Kandy)",150);
-                payemthis.child(id).setValue(ps);
-                    Toast.makeText(AccountService.this, "Succefully", Toast.LENGTH_SHORT).show();
-              //  }
-              // / else
-                  //  Toast.makeText(AccountService.this, "You are already got a Loan", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
         alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Toast.makeText(AccountService.this, "You fkk", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AccountService.this, "Cancel", Toast.LENGTH_SHORT).show();
+                //finish();
             }
         });
         alert.create().show();
     }
+
     public boolean isBalanceSufficient(String cardNumber){
         return true;
     }
-//    public boolean isOnLoan(String cardNo) {
-//
-//        if (cardNo=="55")
-//        return true;
-//        else
-//            return false;
-//    }
+
     public  void applyForLoan(String cardNo){
 
     }
+
     public void recharge(String cardNo,float amount,String paymentMethod){
 
     }
+
     private void setDetailsStatus(String id){
+
 
         accounts.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Account ac=new Account();
+                    Account ac=new Account();
                ac=dataSnapshot.getValue(Account.class);
               //  us=dataSnapshot.getValue(User.class);
              Log.d("TAGMY","id111111111111111111111111111111   "+ac.getLoanAmnt());
                 ucard=ac.getCardNo();
+                avlBal= String.valueOf(ac.getCrediteBal());
                 cardNo.setText(ac.getCardNo());
                 Balance.setText(String.valueOf(ac.getCrediteBal()));
                 loytyPoint.setText(String.valueOf(ac.getLoPoint()));
+
 
             }
 
@@ -233,9 +233,11 @@ a=new AccountManage();
         IPaymentMethod p =new PaymentMethod();
         b=p.makePay(userKey,10.5f);
 
-        Log.d("ddreal", String.valueOf(b));
+     //   Log.d("ddreal", String.valueOf(b));
 
 
     }
+
+
 
 }

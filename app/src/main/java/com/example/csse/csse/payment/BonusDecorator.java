@@ -12,7 +12,8 @@ public class BonusDecorator implements IPaymentMethod {
     @Override
     public boolean makePay(String cardno, float amnt) {
         // TODO Auto-generated method stub
-        return false;
+
+        return tempPay.makePay(cardno,amnt);
     }
 
 

@@ -45,6 +45,8 @@ public class RechargeM extends AppCompatActivity {
     private Button getB,rechB;
     private String userKey;
     private String cardno;
+    private String Bal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,7 @@ public class RechargeM extends AppCompatActivity {
 
        userKey = getIntent().getExtras().getString("postId");
        cardno =getIntent().getExtras().getString("postCard");
-
+        Bal= getIntent().getExtras().getString("postBal");
         db = FirebaseDatabase.getInstance();
         mAuth=FirebaseAuth.getInstance();
         user = db.getReference("User");
@@ -83,79 +85,6 @@ public class RechargeM extends AppCompatActivity {
         });
     }
 
-//    private void verifyRecharge() {
-//
-//        String enterdCode=code.getText().toString();
-//        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codesend, enterdCode);
-//        signInWithPhoneAuthCredential(credential);
-//    }
-//    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-//        mAuth.signInWithCredential(credential)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//
-//                            Toast.makeText(getApplicationContext(),"Recharge Successfull",Toast.LENGTH_LONG).show();
-//                        } else {
-//
-//                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-//                                // The verification code entered was invalid
-//                                Toast.makeText(getApplicationContext(),"Sorry Error",Toast.LENGTH_LONG).show();
-//                            }
-//                        }
-//                    }
-//                });
-//    }
-//
-//
-//    private void senverificationcode() {
-//
-//        String umobile = mobileNo.getText().toString();
-//        final String uamount = amount.getText().toString();
-//    Log.d("tt",umobile);
-//        if(umobile.isEmpty()){
-//            mobileNo.setError("Number is Required");
-//            mobileNo.requestFocus();
-//            return;
-//        }
-//
-//        if(umobile.length()<10){
-//            mobileNo.setError("Please Enter Valid Mobile No");
-//            mobileNo.requestFocus();
-//            return;
-//        }
-//
-//
-//        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-//                umobile,        // Phone number to verify
-//                60,                 // Timeout duration
-//                TimeUnit.SECONDS,   // Unit of timeout
-//                this,               // Activity (for callback binding)
-//                mCallbacks);        // OnVerificationStateChangedCallbacks
-//
-//
-//    }
-//    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks=new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-//        @Override
-//        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-//
-//        }
-//
-//        @Override
-//        public void onVerificationFailed(FirebaseException e) {
-//
-//        }
-//
-//        @Override
-//        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-//            super.onCodeSent(s, forceResendingToken);
-//            codesend=s;
-//        }
-//    };
-//
-//}
-
     private void verifyCode(){
         String enterdCode=code.getText().toString();
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codesend, enterdCode);
@@ -170,15 +99,12 @@ public class RechargeM extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             float amnt= Float.parseFloat(amount.getText().toString());
 
-                                AccountManage ac=new AccountManage();
-                                ac.updateBalance(userKey,amnt);
+                               AccountManage ac=new AccountManage();
+                               float b= Float.parseFloat(Bal);
+                                ac.updateRechargeBalance(userKey,amnt,b);
 
-                              Log.d("ee", "Succss Pay");
                               Toast.makeText(RechargeM.this, "success pay", Toast.LENGTH_LONG).show();
-                          //  Intent intent = new Intent(OtpActivity.this, MainActivity.class);
-                         //   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                         //   startActivity(intent);
 
                         } else {
                             Toast.makeText(RechargeM.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
