@@ -142,7 +142,7 @@
         android:layout_marginTop="44dp"
         android:onClick="paymethodGet"
         android:text="Pay"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getloanb" />
 
